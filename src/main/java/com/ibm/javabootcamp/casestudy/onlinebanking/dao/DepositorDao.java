@@ -10,7 +10,7 @@ public interface DepositorDao {
 
 	public Depositors find(Long id);
 
-	public List<Depositors> findByName(String dep_fname, String dep_lname, String dep_mname, String address, long contactNo);
+	public List<Depositors> findByName(String dep_fname, String dep_lname);
 
 	public void add(Depositors depositor);
 

@@ -4,16 +4,17 @@ import java.math.BigDecimal;
 
 public class Accounts {
 
-	Long acct_no;
+	BigDecimal acct_no;
 	String acct_shortname;
 	String acct_type;
 	BigDecimal curr_balance;
 	
-	public Accounts(String acct_shortname, String acct_type, BigDecimal curr_balance) {
-		this(null, acct_shortname, acct_type, curr_balance);
+	public Accounts() {
+		
 	}
 	
-	public Accounts(Long acct_no, String acct_shortname, String acct_type, BigDecimal curr_balance) {
+	
+	public Accounts(BigDecimal acct_no, String acct_shortname, String acct_type, BigDecimal curr_balance) {
 		super();
 		this.acct_no = acct_no;
 		this.acct_shortname = acct_shortname;
@@ -22,10 +23,10 @@ public class Accounts {
 	}
 	
 	
-	public Long getAcct_no() {
+	public BigDecimal getAcct_no() {
 		return acct_no;
 	}
-	public void setAcct_no(Long acct_no) {
+	public void setAcct_no(BigDecimal acct_no) {
 		this.acct_no = acct_no;
 	}
 	public String getAcct_shortname() {

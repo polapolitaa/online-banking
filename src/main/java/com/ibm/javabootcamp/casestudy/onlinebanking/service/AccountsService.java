@@ -14,6 +14,8 @@ public interface AccountsService {
 
 	public Accounts find(Long id);
 
-	public List<Accounts> findByName(String acc_shortName, String acct_type, BigDecimal curr_balance);
+	public List<Accounts> findByName(BigDecimal acct_no, String acc_shortName);
+	
+	public void update(Accounts account);
 
 }

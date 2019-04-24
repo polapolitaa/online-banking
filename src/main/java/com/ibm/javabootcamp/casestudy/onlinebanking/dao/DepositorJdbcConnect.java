@@ -67,7 +67,6 @@ public class DepositorJdbcConnect implements DepositorDao {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-
 	}
 	
 	
@@ -101,7 +100,7 @@ public class DepositorJdbcConnect implements DepositorDao {
 	@Override
 	public List<Depositors> findAll() {
 
-		return findByName(null, null, null, null, 0);
+		return findByName(null, null);
 
 	}
 
@@ -134,7 +133,7 @@ public class DepositorJdbcConnect implements DepositorDao {
 	}
 
 	@Override
-	public List<Depositors> findByName(String dep_fname, String dep_lname, String dep_mname, String address, long contactNo) {
+	public List<Depositors> findByName(String dep_fname, String dep_lname) {
 
 		List<Depositors> depositor = new ArrayList<>();
 

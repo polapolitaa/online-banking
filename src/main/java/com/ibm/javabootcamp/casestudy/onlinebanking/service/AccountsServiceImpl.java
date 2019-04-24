@@ -43,9 +43,20 @@ public class AccountsServiceImpl implements AccountsService{
 	}
 
 	@Override
-	public List<Accounts> findByName(String acc_shortName, String acct_type, BigDecimal curr_balance) {
+	public List<Accounts> findByName(BigDecimal acct_no, String acc_shortName) {
 		
-		return accountsDao.findByName(acc_shortName, acct_type, curr_balance);
+		return accountsDao.findByName(acct_no, acc_shortName);
+	}
+
+	@Override
+	public void update(Accounts account) {
+	
+				accountsDao.update(account);
+		
+	}
+	
+	private boolean validateUpdate(Accounts account) {
+		return !StringUtils.isAnyBlank(account.getAcct_shortname()) && account.getAcct_no().compareTo(BigDecimal.ZERO) != 0;
 	}
 	
 

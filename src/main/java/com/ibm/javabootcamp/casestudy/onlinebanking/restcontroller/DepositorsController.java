@@ -30,18 +30,15 @@ public class DepositorsController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Depositors> getDepositors(
 			@QueryParam("dep_fname") String dep_fname,
-			@QueryParam("dep_lname") String dep_lname,
-			@QueryParam("dep_mname") String dep_mname,
-			@QueryParam("dep_address") String address,
-			@QueryParam("dep_contact") long contactNo) {
+			@QueryParam("dep_lname") String dep_lname) {
 
 		try {
 			List<Depositors> depositors;
 
-			if (StringUtils.isAllBlank(dep_fname, dep_lname, dep_fname, dep_lname, dep_mname, address)) {
+			if (StringUtils.isAllBlank(dep_fname, dep_lname, dep_fname, dep_lname)) {
 				depositors = depositorsService.findAll();
 			} else {
-				depositors = depositorsService.findByName(dep_fname, dep_lname, dep_mname, address, contactNo);
+				depositors = depositorsService.findByName(dep_fname, dep_lname);
 			}
 
 			return depositors;

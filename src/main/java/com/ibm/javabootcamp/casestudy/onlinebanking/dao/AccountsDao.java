@@ -12,7 +12,11 @@ public interface AccountsDao {
 
 	public Accounts findAccount(Long id);
 
-	public List<Accounts> findByName(String acct_shortName, String acct_type, BigDecimal curr_balance);
+	public List<Accounts> findByName(BigDecimal acct_no, String acct_shortName);
 
 	public void addAccount(Accounts accounts);
+	
+	public void update(Accounts account);
+	
+	
 }

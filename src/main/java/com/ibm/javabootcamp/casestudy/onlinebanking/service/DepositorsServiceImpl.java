@@ -40,8 +40,8 @@ public class DepositorsServiceImpl implements DepositorsService {
 	}
 
 	@Override
-	public List<Depositors> findByName(String dep_fname, String dep_lname, String dep_mname, String address, long contactNo) {
+	public List<Depositors> findByName(String dep_fname, String dep_lname) {
 
-		return depositorDao.findByName(dep_fname, dep_lname, dep_mname, address, contactNo);
+		return depositorDao.findByName(dep_fname, dep_lname);
 	}
 }

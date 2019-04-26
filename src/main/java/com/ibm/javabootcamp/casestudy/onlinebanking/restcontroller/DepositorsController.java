@@ -25,6 +25,13 @@ public class DepositorsController {
 		this.depositorsService = new DepositorsServiceImpl();
 
 	}
+	
+	@GET
+	@Path("/hello")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getHello() {
+		return "HELLO WORLD";
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

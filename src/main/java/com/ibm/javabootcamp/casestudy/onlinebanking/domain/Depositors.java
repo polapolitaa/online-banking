@@ -8,7 +8,8 @@ public class Depositors {
 	private String dep_mname;
 	private String address;
 	private long contactNo;
-
+	
+	
 	public Depositors(String dep_fname, String dep_lname, String dep_mname, String address, long contactNo) {
 		this(null, dep_fname, dep_lname, dep_mname, address, contactNo);
 	}

@@ -4,13 +4,17 @@ import java.math.BigDecimal;
 
 public class Accounts {
 
-	BigDecimal acct_no;
-	String acct_shortname;
-	String acct_type;
-	BigDecimal curr_balance;
+	private BigDecimal acct_no;
+	private String acct_shortname;
+	private String acct_type;
+	private BigDecimal curr_balance;
 	
 	public Accounts() {
 		
+	}
+	
+	public Accounts(BigDecimal acct_no) {
+		this.acct_no = acct_no;
 	}
 	
 	

@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +13,13 @@ import org.hsqldb.jdbc.JDBCDataSource;
 
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Accounts;
 
-public class AccountsJdbcConnect implements AccountsDao {
+public class AccountsJdbcConnect extends HsqlDbConnection implements AccountsDao {
 	
 	private static AccountsJdbcConnect INSTANCE;
 	
-	private JDBCDataSource dataSource;
-	
 	static public AccountsJdbcConnect getinstance() {
 		AccountsJdbcConnect instance;
+		
 		if (INSTANCE != null) {
 
 			instance = INSTANCE;
@@ -36,56 +34,14 @@ public class AccountsJdbcConnect implements AccountsDao {
 	
 	private AccountsJdbcConnect() {
 		
-		dataSource = new JDBCDataSource();
-		dataSource.setDatabase("jdbc:hsqldb:mem:USER");
-		dataSource.setUser("username");
-		dataSource.setPassword("password");
-
-		createAcctTbl();
-		insertInitAccounts();
-//		alterAcctTbl();
+		init();
 	}
-	
-	
-	private void createAcctTbl() {
-		String acct_Table = "CREATE TABLE ACCOUNTS" + "(acct_no NUMERIC IDENTITY PRIMARY KEY, "
-				+ "acct_shortName VARCHAR(255), " + "acct_type VARCHAR(255), " + "curr_balance DECIMAL)";
 
-		try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
-			stmt.executeUpdate(acct_Table);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
-	
-//	
-//	private void alterAcctTbl() {
-//
-//		String alterSql = "ALTER TABLE ACCOUNTS " + "ADD FOREIGN KEY (fk_dep_id) "
-//				+ "REFERENCES DEPOSITORS(dep_id) ";
-//
-//		try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
-//
-//			stmt.executeUpdate(alterSql);
-//			System.out.println("Table altered");
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			throw new RuntimeException(e);
-//		}
-//
-//	}
-	
-	
-	private void insertInitAccounts() {
-		addAccount(new Accounts(new BigDecimal(1234467898), "BILLS","Savings", new BigDecimal(10000)));
-	}
 
 	@Override
 	public void addAccount(Accounts accounts) {
 		String inSql = "INSERT INTO ACCOUNTS (acct_no, acct_shortName, acct_type, curr_balance) VALUES (?, ?, ?, ?)";
+		
 		
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(inSql)) {
 			
@@ -95,13 +51,12 @@ public class AccountsJdbcConnect implements AccountsDao {
 			ps.setBigDecimal(4, accounts.getCurr_balance());
 			ps.executeUpdate();
 			
-			System.out.println(accounts.getAcct_shortname() + " " + accounts.getAcct_no());
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		
 		
 	}
 	

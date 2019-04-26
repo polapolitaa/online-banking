@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +12,12 @@ import org.hsqldb.jdbc.JDBCDataSource;
 
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Depositors;
 
-public class DepositorJdbcConnect implements DepositorDao {
+public class DepositorJdbcConnect extends HsqlDbConnection implements DepositorDao {
 	
 	private static DepositorJdbcConnect INSTANCE;
 
-	private JDBCDataSource dataSource;
+	
+	
 
 	static public DepositorJdbcConnect getinstance() {
 		DepositorJdbcConnect instance;
@@ -36,48 +36,21 @@ public class DepositorJdbcConnect implements DepositorDao {
 
 	// db connection
 	private DepositorJdbcConnect() {
-
-		dataSource = new JDBCDataSource();
-		dataSource.setDatabase("jdbc:hsqldb:mem:USER");
-		dataSource.setUser("username");
-		dataSource.setPassword("password");
-
-		createTables();
-		insertInitDepositors();
-	}
-
-	// creating depositor table in db
-	private void createTables() {
-
-		depTable();
-
-	}
-
-	private void depTable() {
-
-		String dep_table = "CREATE TABLE DEPOSITORS" + "(dep_id INTEGER IDENTITY PRIMARY KEY, "
-				+ "dep_fname VARCHAR(255), " + "dep_mname VARCHAR(255), " + "dep_lname VARCHAR(255), "
-				+ "dep_address VARCHAR(255), " + "dep_contact BIGINT)";
-
-		try (Connection conn = dataSource.getConnection(); Statement stmt = conn.createStatement()) {
-
-			stmt.executeUpdate(dep_table);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+		
+		init();
+		
 	}
 	
-	
-	//initializing depositors
-	private void insertInitDepositors() {
+//	private DepositorJdbcConnect() {
+//
+//		dataSource = new JDBCDataSource();
+//		dataSource.setDatabase("jdbc:hsqldb:hsql://localhost/onlinebanking");
+//		dataSource.setUser("SA");
+//		dataSource.setPassword("");
+//		
+//	}
 
-		add(new Depositors("Paula", "Dichoso", "test", "teeeeest", 9560598369L));
-		add(new Depositors("Dennise", "Ramilla" , "test", "teest!", 9565463377L));
-
-	}
-
+	//ADDING DEPOSITORS
 	public void add(Depositors depositor) {
 
 		String inSql = "INSERT INTO DEPOSITORS (dep_fname, dep_lname, dep_mname, dep_address, dep_contact) VALUES (?, ?, ?, ?, ?)";
@@ -97,13 +70,16 @@ public class DepositorJdbcConnect implements DepositorDao {
 		}
 	}
 
+	//LIST ALL DEPOSITOR INFO
 	@Override
 	public List<Depositors> findAll() {
-
+		
+		
 		return findByName(null, null);
 
 	}
-
+	
+	//FIND DEPOSITOR ID
 	@Override
 	public Depositors find(Long id) {
 
@@ -131,16 +107,19 @@ public class DepositorJdbcConnect implements DepositorDao {
 
 		return depositor;
 	}
-
+	
+	
+	//FIND DEPOSITOR BY FIRST NAME AND LAST NAME
 	@Override
 	public List<Depositors> findByName(String dep_fname, String dep_lname) {
 
 		List<Depositors> depositor = new ArrayList<>();
 
 		String sql = "SELECT * FROM depositors WHERE dep_fname LIKE ? AND dep_lname LIKE ?";
-
+		
+		
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
+			
 			ps.setString(1, createSearchValue(dep_fname));
 			ps.setString(2, createSearchValue(dep_lname));
 
@@ -153,11 +132,12 @@ public class DepositorJdbcConnect implements DepositorDao {
 				depositor.add(dep);
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
+		
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-
+		
 		return depositor;
 	}
 

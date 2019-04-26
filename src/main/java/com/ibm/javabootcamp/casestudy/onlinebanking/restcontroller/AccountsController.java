@@ -34,15 +34,13 @@ public class AccountsController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Accounts> getAccounts(
 			@QueryParam("acct_no") BigDecimal acctNo,
-			@QueryParam("acct_shortName") String shortName,
-			@QueryParam("acct_type") String acctType,
-			@QueryParam("curr_balance") BigDecimal currBalance){
+			@QueryParam("acct_shortName") String shortName){
 		
 		try {
 			
 			List<Accounts> accounts;
 			
-			if(StringUtils.isAllBlank(shortName, acctType)) {
+			if(StringUtils.isAllBlank(shortName)) {
 				accounts = accountsService.findAll();
 				
 			}else {

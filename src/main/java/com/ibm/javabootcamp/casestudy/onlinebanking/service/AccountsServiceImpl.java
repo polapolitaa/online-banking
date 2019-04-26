@@ -55,9 +55,5 @@ public class AccountsServiceImpl implements AccountsService{
 		
 	}
 	
-	private boolean validateUpdate(Accounts account) {
-		return !StringUtils.isAnyBlank(account.getAcct_shortname()) && account.getAcct_no().compareTo(BigDecimal.ZERO) != 0;
-	}
-	
 
 }

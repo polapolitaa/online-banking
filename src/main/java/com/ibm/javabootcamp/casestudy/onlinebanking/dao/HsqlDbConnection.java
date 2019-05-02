@@ -12,8 +12,7 @@ public abstract class HsqlDbConnection {
 		dataSource.setDatabase("jdbc:hsqldb:hsql://localhost/onlinebanking");
 		dataSource.setUser("SA");
 		dataSource.setPassword("");
-		
-		
+	
 	}
 	
 }

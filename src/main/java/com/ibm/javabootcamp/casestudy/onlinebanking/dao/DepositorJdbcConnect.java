@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hsqldb.jdbc.JDBCDataSource;
 
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Depositors;
 
@@ -16,8 +15,6 @@ public class DepositorJdbcConnect extends HsqlDbConnection implements DepositorD
 	
 	private static DepositorJdbcConnect INSTANCE;
 
-	
-	
 
 	static public DepositorJdbcConnect getinstance() {
 		DepositorJdbcConnect instance;

@@ -16,7 +16,7 @@ import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Depositors;
 import com.ibm.javabootcamp.casestudy.onlinebanking.service.DepositorsService;
 import com.ibm.javabootcamp.casestudy.onlinebanking.service.DepositorsServiceImpl;
 
-@Path("/depositors")
+@Path("/depositor")
 public class DepositorsController {
 
 	private DepositorsService depositorsService;

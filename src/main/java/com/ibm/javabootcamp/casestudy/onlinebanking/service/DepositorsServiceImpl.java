@@ -21,16 +21,16 @@ public class DepositorsServiceImpl implements DepositorsService {
 		}
 
 	}
+	
+	private boolean validate(Depositors depositor) {
+		return !StringUtils.isAnyBlank(depositor.getDep_fname(), depositor.getDep_lname(), depositor.getDep_mname(), depositor.getAddress());
+	}
 
 	@Override
 	public List<Depositors> findAll() {
 
 		return depositorDao.findAll();
 
-	}
-
-	private boolean validate(Depositors depositor) {
-		return !StringUtils.isAnyBlank(depositor.getDep_fname(), depositor.getDep_lname(), depositor.getDep_mname(), depositor.getAddress());
 	}
 
 	@Override

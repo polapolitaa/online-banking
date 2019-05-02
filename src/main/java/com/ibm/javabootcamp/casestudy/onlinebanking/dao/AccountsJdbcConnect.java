@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hsqldb.jdbc.JDBCDataSource;
 
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Accounts;
 
@@ -73,7 +72,7 @@ public class AccountsJdbcConnect extends HsqlDbConnection implements AccountsDao
 
 		if (id != null) {
 			String sql = "SELECT * FROM accounts where acct_no = ?";
-
+			
 			try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
 				ps.setInt(1, id.intValue());
@@ -95,6 +94,7 @@ public class AccountsJdbcConnect extends HsqlDbConnection implements AccountsDao
 
 	@Override
 	public List<Accounts> findByName(BigDecimal acct_no, String acct_shortName) {
+		
 		List<Accounts> account = new ArrayList<>();
 
 		String sql = "SELECT * FROM accounts WHERE acct_no LIKE ? OR acct_shortName LIKE ?";
@@ -137,7 +137,7 @@ public class AccountsJdbcConnect extends HsqlDbConnection implements AccountsDao
 	public void update(Accounts account) {
 		
 		String updateSql = "UPDATE ACCOUNTS SET acct_shortName = ? WHERE acct_no = ?";
-
+		
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(updateSql)) {
 
 			ps.setString(1, account.getAcct_shortname());
@@ -150,4 +150,16 @@ public class AccountsJdbcConnect extends HsqlDbConnection implements AccountsDao
 		}
 	}
 
+	@Override
+	public void transferFundAdd(Accounts account) {
+		
+		
+		
+	}
+
+	@Override
+	public void transferFundSub(Accounts account) {
+
+		
+	}
 }

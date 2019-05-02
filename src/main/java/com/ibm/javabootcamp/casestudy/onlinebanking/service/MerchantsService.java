@@ -1,10 +1,10 @@
-package com.ibm.javabootcamp.casestudy.onlinebanking.dao;
+package com.ibm.javabootcamp.casestudy.onlinebanking.service;
 
 import java.util.List;
 
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Merchants;
 
-public interface MerchantsDao {
+public interface MerchantsService {
 	
 	public List<Merchants> findAll();
 

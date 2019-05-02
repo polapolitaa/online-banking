@@ -6,6 +6,9 @@ public class Merchants {
 	private String merch_name;
 	
 	
+	public Merchants() {
+		
+	}
 	
 	public Merchants(String merch_name) {
 		this(null, merch_name);

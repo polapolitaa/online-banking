@@ -14,9 +14,12 @@ public interface AccountsDao {
 
 	public List<Accounts> findByName(BigDecimal acct_no, String acct_shortName);
 
-	public void addAccount(Accounts accounts);
+	public void addAccount(Accounts account);
 	
 	public void update(Accounts account);
 	
+	public void transferFundAdd(Accounts account);
+	
+	public void transferFundSub(Accounts account);
 	
 }

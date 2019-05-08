@@ -56,6 +56,8 @@ public class MerchantsDaoImpl extends HsqlDbConnection implements MerchantsDao{
 
 				ps.setInt(1, id.intValue());
 				ResultSet results = ps.executeQuery();
+				
+				Long m_id = Long.valueOf(results.getInt("merch_id"));
 
 				if (results.next()) {
 					merchant = new Merchants(Long.valueOf(results.getInt("merch_id")), results.getString("merch_name"));
@@ -127,5 +129,7 @@ public class MerchantsDaoImpl extends HsqlDbConnection implements MerchantsDao{
 		return value;
 	
 	}
-
+	
+	
+	
 }

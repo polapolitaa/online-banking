@@ -27,9 +27,9 @@ public class DepositorsServiceImpl implements DepositorsService {
 	}
 
 	@Override
-	public List<Depositors> findAll() {
+	public List<Depositors> showDetails() {
 
-		return depositorDao.findAll();
+		return depositorDao.showDetails();
 
 	}
 
@@ -38,10 +38,10 @@ public class DepositorsServiceImpl implements DepositorsService {
 
 		return depositorDao.find(id);
 	}
-
-	@Override
-	public List<Depositors> findByName(String dep_fname, String dep_lname) {
-
-		return depositorDao.findByName(dep_fname, dep_lname);
-	}
+//
+//	@Override
+//	public List<Depositors> findByName(String dep_fname, String dep_lname) {
+//
+//		return depositorDao.findByName(dep_fname, dep_lname);
+//	}
 }

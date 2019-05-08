@@ -35,18 +35,13 @@ public class DepositorsController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Depositors> getDepositors(
-			@QueryParam("dep_fname") String dep_fname,
-			@QueryParam("dep_lname") String dep_lname) {
+	public List<Depositors> getDepositors() {
 
 		try {
+			
 			List<Depositors> depositors;
 
-			if (StringUtils.isAllBlank(dep_fname, dep_lname, dep_fname, dep_lname)) {
-				depositors = depositorsService.findAll();
-			} else {
-				depositors = depositorsService.findByName(dep_fname, dep_lname);
-			}
+			depositors = depositorsService.showDetails();
 
 			return depositors;
 
@@ -59,12 +54,18 @@ public class DepositorsController {
 	@Path("{dep_id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Depositors getDepositors(@PathParam("dep_id") String depId) {
+		
 		try {
+			
 			Long longDepId = Long.parseLong(depId);
 			Depositors depositor = depositorsService.find(longDepId);
+			
 			return depositor;
+			
 		}catch(Exception e){
+			
 			throw new WebApplicationException(e);
+			
 		}
 	}
 	

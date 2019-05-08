@@ -8,52 +8,44 @@ import org.apache.commons.lang3.StringUtils;
 import com.ibm.javabootcamp.casestudy.onlinebanking.dao.AccountsJdbcConnect;
 import com.ibm.javabootcamp.casestudy.onlinebanking.domain.Accounts;
 
-public class AccountsServiceImpl implements AccountsService{
-	
+public class AccountsServiceImpl implements AccountsService {
+
 	AccountsJdbcConnect accountsDao;
-	
+
 	public AccountsServiceImpl() {
 		this.accountsDao = AccountsJdbcConnect.getinstance();
 	}
 
 	@Override
 	public void addAccount(Accounts account) {
-		if(validate(account)) {
-			accountsDao.addAccount(account);
-		}else {
-			System.out.println("Fields is empty");
-		}
-		
-	}
-	
-	private boolean validate(Accounts account) {
-		return !StringUtils.isAnyBlank(account.getAcct_shortname(), account.getAcct_type());
+		accountsDao.addAccount(account);
+
 	}
 
 	@Override
-	public List<Accounts> findAll() {
-		
-		return accountsDao.findAll();
+	public List<Accounts> showAcctDetails() {
+
+		return accountsDao.showAcctDetails();
 	}
 
 	@Override
 	public Accounts find(Long id) {
-		
+
 		return accountsDao.findAccount(id);
 	}
 
 	@Override
-	public List<Accounts> findByName(BigDecimal acct_no, String acc_shortName) {
-		
-		return accountsDao.findByName(acct_no, acc_shortName);
+	public void update(Accounts account) {
+
+		accountsDao.update(account);
+
 	}
 
 	@Override
-	public void update(Accounts account) {
-	
-				accountsDao.update(account);
+	public void payMerchant(Accounts account) {
 		
+		accountsDao.payMerchant(account);
+
 	}
-	
 
 }

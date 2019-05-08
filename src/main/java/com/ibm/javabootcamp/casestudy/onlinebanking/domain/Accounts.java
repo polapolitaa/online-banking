@@ -12,11 +12,7 @@ public class Accounts {
 	public Accounts() {
 		
 	}
-	
-	public Accounts(BigDecimal acct_no) {
-		this.acct_no = acct_no;
-	}
-	
+
 	
 	public Accounts(BigDecimal acct_no, String acct_shortname, String acct_type, BigDecimal curr_balance) {
 		super();
@@ -51,6 +47,9 @@ public class Accounts {
 	public void setCurr_balance(BigDecimal curr_balance) {
 		this.curr_balance = curr_balance;
 	}
+
+
+
 	
 	
 	

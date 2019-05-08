@@ -8,9 +8,9 @@ public interface DepositorsService {
 	
 	public void add(Depositors depositor);
 
-	public List<Depositors> findAll();
-
+	public List<Depositors> showDetails();
+//
 	public Depositors find(Long id);
-
-	public List<Depositors> findByName(String dep_fname, String dep_lname);
+//
+//	public List<Depositors> findByName(String dep_fname, String dep_lname);
 }

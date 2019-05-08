@@ -37,16 +37,6 @@ public class DepositorJdbcConnect extends HsqlDbConnection implements DepositorD
 		init();
 		
 	}
-	
-//	private DepositorJdbcConnect() {
-//
-//		dataSource = new JDBCDataSource();
-//		dataSource.setDatabase("jdbc:hsqldb:hsql://localhost/onlinebanking");
-//		dataSource.setUser("SA");
-//		dataSource.setPassword("");
-//		
-//	}
-
 	//ADDING DEPOSITORS
 	public void add(Depositors depositor) {
 
@@ -69,56 +59,16 @@ public class DepositorJdbcConnect extends HsqlDbConnection implements DepositorD
 
 	//LIST ALL DEPOSITOR INFO
 	@Override
-	public List<Depositors> findAll() {
+	public List<Depositors> showDetails() {
 		
-		
-		return findByName(null, null);
-
-	}
-	
-	//FIND DEPOSITOR ID
-	@Override
-	public Depositors find(Long id) {
-
-		Depositors depositor = null;
-
-		if (id != null) {
-			String sql = "SELECT * FROM depositors where dep_id = ?";
-
-			try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-				ps.setInt(1, id.intValue());
-				ResultSet results = ps.executeQuery();
-
-				if (results.next()) {
-					depositor = new Depositors(Long.valueOf(results.getInt("dep_id")), results.getString("dep_fname"),
-							results.getString("dep_lname"), results.getString("dep_mname"), results.getString("dep_address"), 
-							Long.valueOf(results.getLong("dep_contact")));
-				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-		}
-
-		return depositor;
-	}
-	
-	
-	//FIND DEPOSITOR BY FIRST NAME AND LAST NAME
-	@Override
-	public List<Depositors> findByName(String dep_fname, String dep_lname) {
-
 		List<Depositors> depositor = new ArrayList<>();
 
-		String sql = "SELECT * FROM depositors WHERE dep_fname LIKE ? AND dep_lname LIKE ?";
+		String sql = "SELECT * FROM depositors WHERE dep_id = ?";
 		
 		
 		try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			
-			ps.setString(1, createSearchValue(dep_fname));
-			ps.setString(2, createSearchValue(dep_lname));
+			ps.setInt(1, 0);
 
 			ResultSet results = ps.executeQuery();
 
@@ -135,19 +85,43 @@ public class DepositorJdbcConnect extends HsqlDbConnection implements DepositorD
 			throw new RuntimeException(e);
 		}
 		
+		
 		return depositor;
+
 	}
+	
+	//FIND DEPOSITOR ID
+	@Override
+	public Depositors find(Long id) {
 
-	private String createSearchValue(String string) {
+		Depositors depositor = null;
+		
+		System.out.println(id);
 
-		String value;
+		if (id != 0) {
+			String sql = "SELECT * FROM depositors where dep_id = ?";
 
-		if (StringUtils.isBlank(string)) {
-			value = "%";
-		} else {
-			value = string;
+			try (Connection conn = dataSource.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+				ps.setInt(1, id.intValue());
+				ResultSet results = ps.executeQuery();
+
+				if (results.next()) {
+					depositor = new Depositors(Long.valueOf(results.getInt("dep_id")), results.getString("dep_fname"),
+							results.getString("dep_lname"), results.getString("dep_mname"), results.getString("dep_address"), 
+							Long.valueOf(results.getLong("dep_contact")));
+					System.out.println("DEPOSITOR");
+					System.out.println(depositor.getDep_id());
+				}
+				
+				
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		}
 
-		return value;
+		return depositor;
 	}
 }

@@ -10,12 +10,12 @@ public interface AccountsService {
 	
 	public void addAccount(Accounts account);
 
-	public List<Accounts> findAll();
+	public List<Accounts> showAcctDetails();
 
 	public Accounts find(Long id);
-
-	public List<Accounts> findByName(BigDecimal acct_no, String acc_shortName);
 	
 	public void update(Accounts account);
+	
+	public void payMerchant(Accounts account);
 
 }
